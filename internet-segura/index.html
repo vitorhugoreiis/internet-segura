@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Guia rápido para usar a internet com segurança — projeto extensionista" />
+  <meta name="keywords" content="segurança digital, golpes online, dicas de segurança, internet segura" />
+  <meta name="author" content="Vitor Hugo Reis" />
+  <meta property="og:title" content="Internet Segura e Sem Mistérios" />
+  <meta property="og:description" content="Guia rápido para usar a internet com segurança — projeto extensionista" />
+  <meta property="og:type" content="website" />
+  <title>Internet Segura e Sem Mistérios</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <h1>Internet Segura e Sem Mistérios</h1>
+      <p class="subtitle">Guia rápido para usar smartphone e internet com segurança — pensado para comunidade.</p>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="#home" class="nav-item">Início</a>
+      <a href="#dicas" class="nav-item">Dicas de Segurança</a>
+      <a href="#golpes" class="nav-item">Evite Golpes</a>
+      <a href="#mais" class="nav-item">Aprenda Mais</a>
+      <a href="#contato" class="nav-item">Contato</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="home" class="home-section">
+      <p class="welcome-text">Olá! 👋 Bem-vindo ao Internet Segura e Sem Mistérios. 
+      Aqui você encontra dicas rápidas e práticas para proteger seu celular, identificar golpes e usar a internet para facilitar o dia a dia.</p>
+      <a href="#dicas" class="cta-button">Acessar Dicas</a>
+    </section>
+
+    <div class="destaques">
+      <h2>⚠️ Destaques e Alertas</h2>
+      <div class="destaques-grid">
+        <div class="destaque-item">
+          <h3>Golpes em Alta</h3>
+          <p>Novo golpe do falso delivery está fazendo vítimas. Aprenda a se proteger.</p>
+          <a href="#golpes" class="destaque-link">Saiba mais →</a>
+        </div>
+        <div class="destaque-item">
+          <h3>Dica Importante</h3>
+          <p>Ative a verificação em duas etapas em todos seus aplicativos importantes.</p>
+          <a href="#dicas" class="destaque-link">Como fazer →</a>
+        </div>
+      </div>
+    </div>
+
+    <section id="dicas" class="tips-section">
+      <div class="section-header tips-header">
+        <h2><span class="tips-icon">🔒</span> Dicas de Segurança</h2>
+        <p>Proteja-se seguindo estas recomendações essenciais</p>
+      </div>
+      
+      <div class="tips-stats">
+        <div class="tip-stat-card">
+          <span class="stat-icon">🔐</span>
+          <span class="stat-number">80%</span>
+          <span class="stat-label">dos golpes podem ser evitados com senhas fortes</span>
+        </div>
+        <div class="tip-stat-card">
+          <span class="stat-icon">📱</span>
+          <span class="stat-number">2x</span>
+          <span class="stat-label">mais seguro com autenticação em 2 etapas</span>
+        </div>
+        <div class="tip-stat-card">
+          <span class="stat-icon">🛡️</span>
+          <span class="stat-number">95%</span>
+          <span class="stat-label">de proteção com todas as dicas aplicadas</span>
+        </div>
+      </div>
+
+      <div class="threats-grid tips-grid">
+        <button class="threat-item" data-modal="senha" aria-label="Ver dicas sobre senhas seguras">
+          <span class="threat-icon" role="img" aria-label="Ícone de cadeado">🔒</span>
+          <span class="threat-name">Senhas Seguras</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="2fa">
+          <span class="threat-icon">🔐</span>
+          <span class="threat-name">Autenticação em 2 Passos</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="update">
+          <span class="threat-icon">📱</span>
+          <span class="threat-name">Atualize Seu Aparelho</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="wifi">
+          <span class="threat-icon">📶</span>
+          <span class="threat-name">Wi-Fi Seguro</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+      </div>
+
+      <!-- Modal de Solução -->
+      <div id="solutionModal" class="solution-modal">
+        <div class="solution-content">
+          <button class="close-modal">&times;</button>
+          <div class="solution-header">
+            <span class="solution-icon"></span>
+            <h3 class="solution-title"></h3>
+          </div>
+          <div class="solution-body">
+            <div class="solution-description"></div>
+            <div class="solution-steps"></div>
+            <div class="solution-tips"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="alerta" class="alert-section">
+      <div class="section-header">
+        <h2>⚠️ Alerta: Aumento de Golpes em 2025</h2>
+        <p>Os números mostram que precisamos nos proteger mais do que nunca</p>
+      </div>
+      
+      <div class="alert-stats-container">
+        <div class="stat-card">
+          <span class="stat-number">300%</span>
+          <span class="stat-label">Aumento em golpes digitais</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">2.5M</span>
+          <span class="stat-label">Brasileiros afetados</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">R$1.5B</span>
+          <span class="stat-label">Prejuízo em 2025</span>
+        </div>
+      </div>
+
+      <div class="alert-details">
+        <div class="alert-text">
+          <h3>Por que se preocupar?</h3>
+          <p>Em 2025, os golpes digitais atingiram níveis recordes no Brasil. Criminosos estão usando inteligência artificial e técnicas avançadas para criar golpes cada vez mais convincentes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="golpes" class="warning-section warning-content">
+      <div class="section-header warning-header">
+        <h2><span class="warning-icon">⚠️</span> Evite Golpes</h2>
+        <p>Os 10 maiores golpes de 2025 e como se proteger</p>
+      </div>
+
+      <div class="threats-grid warning-grid">
+        <button class="threat-item" data-modal="whatsapp-ia">
+          <span class="threat-icon">🤖</span>
+          <span class="threat-name">Clonagem de WhatsApp com IA</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="whatsapp-clonado">
+          <span class="threat-icon">⚠️</span>
+          <span class="threat-name">WhatsApp Clonado</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="pix">
+          <span class="threat-icon">❓</span>
+          <span class="threat-name">Falso Comprovante Pix</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="boleto">
+          <span class="threat-icon">❗</span>
+          <span class="threat-name">Boleto Falso</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="emprego">
+          <span class="threat-icon">💼</span>
+          <span class="threat-name">Falsa Vaga de Emprego</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="entrega">
+          <span class="threat-icon">📦</span>
+          <span class="threat-name">Entrega Falsa</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="namoro">
+          <span class="threat-icon">❤️</span>
+          <span class="threat-name">Golpe do Romance</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="investimento">
+          <span class="threat-icon">📈</span>
+          <span class="threat-name">Falso Investimento</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="premio">
+          <span class="threat-icon">🎯</span>
+          <span class="threat-name">Falso Prêmio</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+
+        <button class="threat-item" data-modal="ajuda">
+          <span class="threat-icon">🆘</span>
+          <span class="threat-name">Pedido de Ajuda Falso</span>
+          <span class="see-more">Ver solução →</span>
+        </button>
+      </div>
+
+      <!-- Modal de Solução -->
+      <div id="solutionModal" class="solution-modal">
+        <div class="solution-content">
+          <button class="close-modal">&times;</button>
+          <div class="solution-header">
+            <span class="solution-icon"></span>
+            <h3 class="solution-title"></h3>
+          </div>
+          <div class="solution-body">
+            <div class="solution-description"></div>
+            <div class="solution-steps"></div>
+            <div class="solution-tips"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mais">
+      <div class="section-header">
+        <h2>Aprenda Mais</h2>
+        <p>Recursos e canais selecionados para você se manter atualizado sobre segurança digital</p>
+      </div>
+
+      <div class="resources-grid">
+        <!-- Documentação e Guias -->
+        <div class="resource-box">
+          <h3>📚 Documentação e Guias</h3>
+          <ul class="resources-list">
+            <li>
+              <a href="https://cartilha.cert.br/" target="_blank" rel="noopener" class="resource-link">
+                <span class="resource-title">Cartilha de Segurança para Internet - CERT.br</span>
+                <span class="resource-desc">Guia completo sobre segurança na internet</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://internetsegura.br/" target="_blank" rel="noopener" class="resource-link">
+                <span class="resource-title">Portal Internet Segura</span>
+                <span class="resource-desc">Dicas e orientações para navegar com segurança</span>
+              </a>
+            </li>
+            <li>
+              <a href="assets/pdf/guia-resumido.pdf" download class="download-button">
+                <span>📥 Baixar Nosso Guia Rápido (PDF)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Canais do YouTube -->
+        <div class="resource-box">
+          <h3>📺 Canais Recomendados</h3>
+          <div class="channel-list">
+            <a href="https://www.youtube.com/user/codigofonteTv" target="_blank" rel="noopener" class="channel-item">
+              <!-- <img src="https://yt3.googleusercontent.com/ytc/APkrFKbhq4OCxOAFpdOkNBH0gHPxGIoMk-68jL6S9ZNTGg=s176-c-k-c0x00ffffff-no-rj" alt="Código Fonte TV" class="channel-thumb"> -->
+              <div class="channel-info">
+                <h4>Código Fonte TV</h4>
+                <p>Dicas de segurança e tecnologia</p>
+              </div>
+            </a>
+            <a href="https://www.youtube.com/c/DiolinuxBr" target="_blank" rel="noopener" class="channel-item">
+              <!-- <img src="https://yt3.googleusercontent.com/ytc/APkrFKY8wFN_epD1vpxYrSK4exuZIQbxCKTBBGLqnU7HHQ=s176-c-k-c0x00ffffff-no-rj" alt="Diolinux" class="channel-thumb"> -->
+              <div class="channel-info">
+                <h4>Diolinux</h4>
+                <p>Segurança digital e privacidade</p>
+              </div>
+            </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" aria-label="Formulário de Contato">
+      <h2>Contato e Feedback</h2>
+      <div class="form-container">
+        <form id="contactForm" action="#" method="POST" aria-labelledby="form-title">
+          <p id="form-title" class="visually-hidden">Formulário de contato e feedback</p>
+          <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+          </div>
+
+          <div class="form-group">
+            <label for="mensagem">Dúvida ou Feedback:</label>
+            <textarea id="mensagem" name="mensagem" rows="4" required placeholder="Digite sua dúvida ou deixe seu feedback sobre o site..."></textarea>
+          </div>
+
+          <div class="form-group checkbox">
+            <input type="checkbox" id="autorizo" name="autorizo">
+            <label for="autorizo">Autorizo o uso do feedback de forma anônima</label>
+          </div>
+
+          <button type="submit" class="submit-button">Enviar Mensagem</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="back-to-top">
+      <a href="#home" class="top-link" aria-label="Voltar ao topo da página">↑ Voltar ao topo</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Projeto extensionista: Internet Segura e Sem Mistérios — Autor: Vitor Hugo Luz Reis, Sistemas de Informação. Universidade Cruzeiro do Sul.</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
