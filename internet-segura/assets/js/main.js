@@ -1,11 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Gerenciamento de todos os modais
+  // Contador de visitas simples (localStorage)
+  function updateVisitCounter() {
+    let visits = localStorage.getItem('siteVisits') || 0;
+    visits = parseInt(visits) + 1;
+    localStorage.setItem('siteVisits', visits);
+    
+    // Atualiza o contador na página se existir
+    const counterElement = document.getElementById('visit-counter');
+    if (counterElement) {
+      counterElement.textContent = visits;
+    }
+  }
+  
+  // Chama o contador ao carregar a página
+  updateVisitCounter();
+
   const modals = {
     solutions: document.getElementById('solutionModal'),
     tips: document.getElementById('modal')
   };
 
-  // Conteúdo das soluções para cada golpe e dica
   const solutionContent = {
     'whatsapp-ia': {
       icon: '🤖',
