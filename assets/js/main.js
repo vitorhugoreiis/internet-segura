@@ -415,4 +415,378 @@ document.addEventListener('DOMContentLoaded', function() {
       form.reset();
     });
   }
+
+  // ========================================
+  // SISTEMA DE ANALYTICS SIMPLES E RÁPIDO
+  // ========================================
+  
+  class SimpleAnalytics {
+    constructor() {
+      this.storageKey = 'internet-segura-analytics';
+      this.data = this.loadData();
+      this.init();
+    }
+
+    loadData() {
+      const stored = localStorage.getItem(this.storageKey);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+      return {
+        totalVisits: 0,
+        dailyVisits: {},
+        pageViews: 0,
+        uniqueVisitors: 0,
+        lastVisit: null,
+        sessionStart: Date.now(),
+        referrers: {},
+        devices: {},
+        browsers: {},
+        countries: {},
+        firstVisit: Date.now()
+      };
+    }
+
+    saveData() {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+    }
+
+    init() {
+      this.trackVisit();
+      this.trackPageView();
+      this.updateDisplay();
+      this.trackDevice();
+      this.trackBrowser();
+      
+      // Salvar dados a cada 30 segundos
+      setInterval(() => this.saveData(), 30000);
+      
+      // Salvar ao fechar a página
+      window.addEventListener('beforeunload', () => this.saveData());
+    }
+
+    trackVisit() {
+      const today = new Date().toDateString();
+      const now = Date.now();
+      
+      // Verificar se é uma nova sessão (mais de 30 minutos desde a última visita)
+      const lastVisit = this.data.lastVisit;
+      const isNewSession = !lastVisit || (now - lastVisit) > 30 * 60 * 1000;
+      
+      if (isNewSession) {
+        this.data.totalVisits++;
+        this.data.uniqueVisitors++;
+        this.data.lastVisit = now;
+        
+        // Contar visitas diárias
+        if (!this.data.dailyVisits[today]) {
+          this.data.dailyVisits[today] = 0;
+        }
+        this.data.dailyVisits[today]++;
+        
+        // Rastrear referrer
+        const referrer = document.referrer || 'Direct';
+        if (!this.data.referrers[referrer]) {
+          this.data.referrers[referrer] = 0;
+        }
+        this.data.referrers[referrer]++;
+      }
+    }
+
+    trackPageView() {
+      this.data.pageViews++;
+    }
+
+    trackDevice() {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const device = isMobile ? 'Mobile' : 'Desktop';
+      
+      if (!this.data.devices[device]) {
+        this.data.devices[device] = 0;
+      }
+      this.data.devices[device]++;
+    }
+
+    trackBrowser() {
+      const userAgent = navigator.userAgent;
+      let browser = 'Unknown';
+      
+      if (userAgent.includes('Chrome')) browser = 'Chrome';
+      else if (userAgent.includes('Firefox')) browser = 'Firefox';
+      else if (userAgent.includes('Safari')) browser = 'Safari';
+      else if (userAgent.includes('Edge')) browser = 'Edge';
+      
+      if (!this.data.browsers[browser]) {
+        this.data.browsers[browser] = 0;
+      }
+      this.data.browsers[browser]++;
+    }
+
+    updateDisplay() {
+      // Atualizar contadores principais
+      const visitCounter = document.getElementById('visit-counter');
+      const sessionCounter = document.getElementById('session-counter');
+      const pageViewsCounter = document.getElementById('page-views');
+      const uniqueVisitorsCounter = document.getElementById('unique-visitors');
+      
+      if (visitCounter) {
+        visitCounter.textContent = this.data.totalVisits.toLocaleString('pt-BR');
+      }
+      
+      if (sessionCounter) {
+        const today = new Date().toDateString();
+        const todayVisits = this.data.dailyVisits[today] || 0;
+        sessionCounter.textContent = todayVisits.toLocaleString('pt-BR');
+      }
+
+      if (pageViewsCounter) {
+        pageViewsCounter.textContent = this.data.pageViews.toLocaleString('pt-BR');
+      }
+
+      if (uniqueVisitorsCounter) {
+        uniqueVisitorsCounter.textContent = this.data.uniqueVisitors.toLocaleString('pt-BR');
+      }
+
+      // Atualizar estatísticas detalhadas
+      this.updateDetailedStats();
+    }
+
+    updateDetailedStats() {
+      const stats = this.getStats();
+      
+      // Atualizar dispositivos
+      const deviceStats = document.getElementById('device-stats');
+      if (deviceStats) {
+        deviceStats.innerHTML = Object.entries(stats.deviceStats)
+          .map(([device, count]) => `<span class="device-item">${device}: ${count.toLocaleString('pt-BR')}</span>`)
+          .join(' | ');
+      }
+
+      // Atualizar navegadores
+      const browserStats = document.getElementById('browser-stats');
+      if (browserStats) {
+        browserStats.innerHTML = Object.entries(stats.browserStats)
+          .map(([browser, count]) => `<span class="browser-item">${browser}: ${count.toLocaleString('pt-BR')}</span>`)
+          .join(' | ');
+      }
+
+      // Atualizar média diária
+      const averageDaily = document.getElementById('average-daily');
+      if (averageDaily) {
+        const statNumber = averageDaily.querySelector('.stat-number');
+        if (statNumber) {
+          statNumber.textContent = stats.averageVisitsPerDay.toLocaleString('pt-BR');
+        }
+      }
+
+      // Atualizar última atualização
+      const lastUpdate = document.getElementById('last-update');
+      if (lastUpdate) {
+        const timeText = lastUpdate.querySelector('.time-text');
+        if (timeText) {
+          timeText.textContent = new Date().toLocaleTimeString('pt-BR');
+        }
+      }
+    }
+
+    getStats() {
+      const today = new Date().toDateString();
+      const todayVisits = this.data.dailyVisits[today] || 0;
+      const daysSinceFirst = Math.ceil((Date.now() - this.data.firstVisit) / (1000 * 60 * 60 * 24));
+      
+      return {
+        totalVisits: this.data.totalVisits,
+        todayVisits: todayVisits,
+        pageViews: this.data.pageViews,
+        uniqueVisitors: this.data.uniqueVisitors,
+        averageVisitsPerDay: Math.round(this.data.totalVisits / Math.max(daysSinceFirst, 1)),
+        topReferrers: Object.entries(this.data.referrers)
+          .sort(([,a], [,b]) => b - a)
+          .slice(0, 5),
+        deviceStats: this.data.devices,
+        browserStats: this.data.browsers,
+        lastVisit: this.data.lastVisit,
+        firstVisit: this.data.firstVisit
+      };
+    }
+
+    exportData() {
+      const stats = this.getStats();
+      const dataToExport = {
+        ...stats,
+        rawData: this.data,
+        exportDate: new Date().toISOString(),
+        projectName: 'Internet Segura e Sem Mistérios'
+      };
+      
+      const blob = new Blob([JSON.stringify(dataToExport, null, 2)], {
+        type: 'application/json'
+      });
+      
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `analytics-internet-segura-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    generateReport() {
+      const stats = this.getStats();
+      const report = `
+RELATÓRIO DE ANALYTICS - INTERNET SEGURA
+========================================
+
+Período: ${new Date(stats.firstVisit).toLocaleDateString('pt-BR')} até ${new Date().toLocaleDateString('pt-BR')}
+
+MÉTRICAS PRINCIPAIS:
+• Total de Visitas: ${stats.totalVisits.toLocaleString('pt-BR')}
+• Visitas Hoje: ${stats.todayVisits.toLocaleString('pt-BR')}
+• Visualizações de Página: ${stats.pageViews.toLocaleString('pt-BR')}
+• Visitantes Únicos: ${stats.uniqueVisitors.toLocaleString('pt-BR')}
+• Média de Visitas/Dia: ${stats.averageVisitsPerDay.toLocaleString('pt-BR')}
+
+DISPOSITIVOS:
+${Object.entries(stats.deviceStats).map(([device, count]) => `• ${device}: ${count.toLocaleString('pt-BR')}`).join('\n')}
+
+NAVEGADORES:
+${Object.entries(stats.browserStats).map(([browser, count]) => `• ${browser}: ${count.toLocaleString('pt-BR')}`).join('\n')}
+
+PRINCIPAIS REFERRERS:
+${stats.topReferrers.map(([ref, count]) => `• ${ref}: ${count.toLocaleString('pt-BR')}`).join('\n')}
+
+ÚLTIMA ATUALIZAÇÃO: ${new Date().toLocaleString('pt-BR')}
+      `;
+      
+      return report;
+    }
+  }
+
+  // Inicializar analytics
+  window.analytics = new SimpleAnalytics();
+
+  // Adicionar botões de controle (se existir a seção de stats)
+  const statsSection = document.querySelector('.stats-section');
+  if (statsSection) {
+    const controlsHTML = `
+      <div class="analytics-controls" style="margin-top: 20px; text-align: center;">
+        <button onclick="window.analytics.exportData()" class="export-btn" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin: 5px; cursor: pointer;">
+          📊 Exportar Dados
+        </button>
+        <button onclick="alert(window.analytics.generateReport())" class="report-btn" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin: 5px; cursor: pointer;">
+          📋 Gerar Relatório
+        </button>
+        <button onclick="window.analytics.updateDisplay()" class="refresh-btn" style="background: #ffc107; color: black; border: none; padding: 10px 20px; border-radius: 5px; margin: 5px; cursor: pointer;">
+          🔄 Atualizar
+        </button>
+      </div>
+    `;
+    statsSection.insertAdjacentHTML('beforeend', controlsHTML);
+  }
+
+  // Atualizar display a cada 5 segundos
+  setInterval(() => {
+    if (window.analytics) {
+      window.analytics.updateDisplay();
+    }
+  }, 5000);
+
+  // Funções auxiliares para o dashboard
+  window.copyToClipboard = function(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Relatório copiado para a área de transferência!');
+    }).catch(() => {
+      // Fallback para navegadores mais antigos
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      alert('Relatório copiado para a área de transferência!');
+    });
+  };
+
+  window.showDetailedStats = function() {
+    const modal = document.getElementById('detailed-stats-modal');
+    const content = document.getElementById('detailed-content');
+    
+    if (window.analytics) {
+      const stats = window.analytics.getStats();
+      
+      content.innerHTML = `
+        <div class="detailed-stats-content">
+          <h4>📊 Resumo Executivo</h4>
+          <div class="stats-summary">
+            <p><strong>Período:</strong> ${new Date(stats.firstVisit).toLocaleDateString('pt-BR')} até ${new Date().toLocaleDateString('pt-BR')}</p>
+            <p><strong>Total de Visitas:</strong> ${stats.totalVisits.toLocaleString('pt-BR')}</p>
+            <p><strong>Visitas Hoje:</strong> ${stats.todayVisits.toLocaleString('pt-BR')}</p>
+            <p><strong>Visualizações de Página:</strong> ${stats.pageViews.toLocaleString('pt-BR')}</p>
+            <p><strong>Visitantes Únicos:</strong> ${stats.uniqueVisitors.toLocaleString('pt-BR')}</p>
+            <p><strong>Média Diária:</strong> ${stats.averageVisitsPerDay.toLocaleString('pt-BR')} visitas/dia</p>
+          </div>
+
+          <h4>📱 Dispositivos Utilizados</h4>
+          <div class="device-breakdown">
+            ${Object.entries(stats.deviceStats).map(([device, count]) => 
+              `<div class="device-bar">
+                <span class="device-name">${device}</span>
+                <div class="device-progress">
+                  <div class="device-fill" style="width: ${(count / Math.max(...Object.values(stats.deviceStats))) * 100}%"></div>
+                </div>
+                <span class="device-count">${count.toLocaleString('pt-BR')}</span>
+              </div>`
+            ).join('')}
+          </div>
+
+          <h4>🌐 Navegadores</h4>
+          <div class="browser-breakdown">
+            ${Object.entries(stats.browserStats).map(([browser, count]) => 
+              `<div class="browser-bar">
+                <span class="browser-name">${browser}</span>
+                <div class="browser-progress">
+                  <div class="browser-fill" style="width: ${(count / Math.max(...Object.values(stats.browserStats))) * 100}%"></div>
+                </div>
+                <span class="browser-count">${count.toLocaleString('pt-BR')}</span>
+              </div>`
+            ).join('')}
+          </div>
+
+          <h4>🔗 Principais Referrers</h4>
+          <div class="referrer-list">
+            ${stats.topReferrers.map(([ref, count]) => 
+              `<div class="referrer-item">
+                <span class="referrer-name">${ref === 'Direct' ? 'Acesso Direto' : ref}</span>
+                <span class="referrer-count">${count.toLocaleString('pt-BR')}</span>
+              </div>`
+            ).join('')}
+          </div>
+
+          <div class="export-actions">
+            <button onclick="window.analytics.exportData()" class="export-btn">📊 Exportar Dados Completos</button>
+            <button onclick="copyToClipboard(window.analytics.generateReport())" class="report-btn">📋 Copiar Relatório</button>
+          </div>
+        </div>
+      `;
+    }
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeDetailedStats = function() {
+    const modal = document.getElementById('detailed-stats-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  };
+
+  // Fechar modal ao clicar fora
+  window.addEventListener('click', (event) => {
+    const modal = document.getElementById('detailed-stats-modal');
+    if (event.target === modal) {
+      closeDetailedStats();
+    }
+  });
 });

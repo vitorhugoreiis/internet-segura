@@ -22,6 +22,14 @@
     gtag('js', new Date());
     gtag('config', 'G-290F9FE8GX');
   </script>
+
+  <!-- Plausible Analytics - Alternativa rápida e gratuita -->
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-uF8qwO67d1cYqnGtviGdd.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
 </head>
 <body>
   <header class="site-header">
@@ -323,32 +331,104 @@
       </div>
     </section>
 
-    <!-- Seção de Estatísticas Simples -->
+    <!-- Seção de Estatísticas Avançadas -->
     <section class="stats-section">
       <div class="stats-container">
         <h2>📊 Estatísticas do Site</h2>
+        
+        <!-- Métricas Principais -->
         <div class="stats-grid">
           <div class="stat-item">
             <span class="stat-number" id="visit-counter">0</span>
-            <span class="stat-label">Visitas ao Site</span>
-            <small class="stat-note">*Contador local aproximado</small>
+            <span class="stat-label">Visitas Totais</span>
+            <small class="stat-note">*Contador local - atualiza instantaneamente</small>
           </div>
           <div class="stat-item">
-            <span class="stat-number">2025</span>
-            <span class="stat-label">Ano do Projeto</span>
-            <small class="stat-note">Projeto extensionista</small>
+            <span class="stat-number" id="session-counter">0</span>
+            <span class="stat-label">Visitas Hoje</span>
+            <small class="stat-note">*Reinicia a cada dia</small>
           </div>
           <div class="stat-item">
-            <span class="stat-number">100%</span>
-            <span class="stat-label">Gratuito</span>
-            <small class="stat-note">Sempre será gratuito</small>
+            <span class="stat-number" id="page-views">0</span>
+            <span class="stat-label">Visualizações</span>
+            <small class="stat-note">*Todas as páginas vistas</small>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="unique-visitors">0</span>
+            <span class="stat-label">Visitantes Únicos</span>
+            <small class="stat-note">*Sessões diferentes</small>
           </div>
         </div>
-        <p class="stats-disclaimer">
-          <strong>Sobre as métricas:</strong> Este site usa Google Analytics para coletar dados anônimos de uso. 
-          O contador de visitas é uma estimativa baseada no navegador local. Para evidências acadêmicas, 
-          também coletamos feedback manual através do formulário de contato.
-        </p>
+
+        <!-- Métricas Detalhadas -->
+        <div class="detailed-stats">
+          <div class="stats-row">
+            <div class="stat-detail">
+              <h4>📱 Dispositivos</h4>
+              <div id="device-stats">
+                <span class="device-item">Carregando...</span>
+              </div>
+            </div>
+            <div class="stat-detail">
+              <h4>🌐 Navegadores</h4>
+              <div id="browser-stats">
+                <span class="browser-item">Carregando...</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="stats-row">
+            <div class="stat-detail">
+              <h4>📈 Média Diária</h4>
+              <div id="average-daily">
+                <span class="stat-number">0</span> visitas/dia
+              </div>
+            </div>
+            <div class="stat-detail">
+              <h4>⏰ Última Atualização</h4>
+              <div id="last-update">
+                <span class="time-text">Agora</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controles de Analytics -->
+        <div class="analytics-controls">
+          <button onclick="window.analytics.exportData()" class="control-btn export-btn">
+            📊 Exportar Dados JSON
+          </button>
+          <button onclick="copyToClipboard(window.analytics.generateReport())" class="control-btn report-btn">
+            📋 Copiar Relatório
+          </button>
+          <button onclick="window.analytics.updateDisplay()" class="control-btn refresh-btn">
+            🔄 Atualizar Agora
+          </button>
+          <button onclick="showDetailedStats()" class="control-btn details-btn">
+            📈 Ver Detalhes
+          </button>
+        </div>
+
+        <!-- Modal de Estatísticas Detalhadas -->
+        <div id="detailed-stats-modal" class="modal" style="display: none;">
+          <div class="modal-content">
+            <span class="close-modal" onclick="closeDetailedStats()">&times;</span>
+            <h3>📊 Estatísticas Detalhadas</h3>
+            <div id="detailed-content">
+              <p>Carregando dados detalhados...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-disclaimer">
+          <strong>🔍 Sobre as Métricas:</strong>
+          <br>• <strong>Contador Local:</strong> Atualiza instantaneamente (baseado no navegador)
+          <br>• <strong>Google Analytics:</strong> Dados completos em 24-48h (ID: G-290F9FE8GX)
+          <br>• <strong>Plausible Analytics:</strong> Alternativa rápida e privada (configurado)
+          <br>• <strong>Feedback Manual:</strong> Coletado através do formulário de contato
+          <br><br>
+          <strong>📚 Para Evidências Acadêmicas:</strong> Use os botões acima para exportar dados e gerar relatórios para seu projeto extensionista.
+        </div>
       </div>
     </section>
 

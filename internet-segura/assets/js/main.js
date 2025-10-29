@@ -1,15 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Contador de visitas simples (localStorage)
   function updateVisitCounter() {
-    let visits = localStorage.getItem('siteVisits') || 0;
-    visits = parseInt(visits) + 1;
+    // Contador total de visitas
+    let visits = parseInt(localStorage.getItem('siteVisits') || '0');
+    visits++;
     localStorage.setItem('siteVisits', visits);
     
-    // Atualiza o contador na página se existir
-    const counterElement = document.getElementById('visit-counter');
-    if (counterElement) {
-      counterElement.textContent = visits;
+    // Contador de sessões diárias
+    const today = new Date().toDateString();
+    const lastVisitDate = localStorage.getItem('lastVisitDate');
+    let dailySessions = parseInt(localStorage.getItem('dailySessions') || '0');
+    
+    if (lastVisitDate !== today) {
+      // Novo dia, resetar contador diário
+      dailySessions = 1;
+      localStorage.setItem('lastVisitDate', today);
+    } else {
+      // Mesmo dia, incrementar
+      dailySessions++;
     }
+    localStorage.setItem('dailySessions', dailySessions);
+    
+    // Atualizar elementos na página
+    const counterElement = document.getElementById('visit-counter');
+    const sessionElement = document.getElementById('session-counter');
+    
+    if (counterElement) {
+      counterElement.textContent = visits.toLocaleString('pt-BR');
+    }
+    
+    if (sessionElement) {
+      sessionElement.textContent = dailySessions.toLocaleString('pt-BR');
+    }
+    
+    console.log(`📊 Estatísticas atualizadas: ${visits} visitas totais, ${dailySessions} sessões hoje`);
   }
   
   // Chama o contador ao carregar a página
