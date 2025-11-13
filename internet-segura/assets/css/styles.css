@@ -1226,10 +1226,117 @@ footer {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .stat-number {
     font-size: 2rem;
   }
-=======
->>>>>>> 5ca29880832a304ceb3a1fa428a9637e338e4a81
+}
+
+.ods-section {
+  background: linear-gradient(135deg, #eef2ff 0%, #dbeafe 100%);
+  border-radius: 12px;
+  padding: 3rem 1.5rem;
+  margin: 4rem 0;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+}
+
+.ods-content {
+  display: flex;
+  justify-content: center;
+}
+
+.ods-card {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+  max-width: 960px;
+  width: 100%;
+}
+
+.ods-pill {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+}
+
+.ods-text h3 {
+  margin: 0 0 1rem 0;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+}
+
+.ods-text p {
+  margin: 0 0 1.25rem 0;
+  color: var(--text-color);
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.ods-text ul {
+  margin: 0 0 1.5rem 1.25rem;
+  padding: 0;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.ods-text li {
+  margin-bottom: 0.8rem;
+}
+
+.ods-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.ods-link::after {
+  content: "↗";
+  font-size: 0.85rem;
+}
+
+.ods-link:hover {
+  color: #1d4ed8;
+  border-color: #93c5fd;
+}
+
+.ods-link:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+@media (max-width: 900px) {
+  .ods-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 2rem;
+  }
+
+  .ods-pill {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .ods-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .ods-card {
+    gap: 1.5rem;
+  }
 }
